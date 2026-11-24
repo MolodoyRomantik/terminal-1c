@@ -262,6 +262,13 @@ class _CourseState extends State<Course> {
         },
         sub: '10 модулей · 60 уроков',
       ),
+      gap(8),
+      tile(
+        Icons.route_outlined,
+        'Маршрут детали',
+        launchBoard,
+        sub: 'Головоломка мастерской',
+      ),
     ]);
   }
 
@@ -484,67 +491,32 @@ class _CourseState extends State<Course> {
     });
   }
 
+  void launchBoard() {
+    setState(() {
+      tab = 1;
+      screen = 'board';
+    });
+  }
+
   Widget gameHome() => list([
-    title('Тренажёры'),
-    gap(20),
-    LayoutBuilder(
-      builder: (context, box) {
-        final width = box.maxWidth < 295
-            ? box.maxWidth
-            : (box.maxWidth - 12) / 2;
-        const swatches = [
-          Color(0xffd8edec),
-          Color(0xffffddbd),
-          Color(0xffe4e0f3),
-          Color(0xffdee8fa),
-        ];
-        return Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: [
-            for (int n = 0; n < 4; n++)
-              SizedBox(
-                width: width,
-                child: Material(
-                  color: swatches[n],
-                  borderRadius: BorderRadius.circular(22),
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    onTap: () => round(n),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(gameIcons[n], size: 32, color: ink),
-                          gap(26),
-                          Text(
-                            games[n],
-                            style: const TextStyle(
-                              fontSize: 18,
-                              height: 1.15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          gap(6),
-                          Text(
-                            [
-                              'Вспомнить слово',
-                              'Посчитать остаток',
-                              'Исправить код',
-                              'Расставить строки',
-                            ][n],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        );
-      },
-    ),
+    title('Игровая мастерская'),
+    gap(),
+    RouteCover(onTap: launchBoard),
+    gap(24),
+    label('Тренажёры'),
+    gap(8),
+    for (int n = 0; n < games.length; n++)
+      tile(
+        gameIcons[n],
+        games[n],
+        () => round(n),
+        sub: [
+          'Вспомнить слово',
+          'Посчитать остаток',
+          'Исправить код',
+          'Расставить строки',
+        ][n],
+      ),
   ]);
   Widget gameRound() => list([
     label(games[mode]),
@@ -644,6 +616,7 @@ class _CourseState extends State<Course> {
                     'lesson' => lesson(),
                     'catalog' => catalog(),
                     'round' => gameRound(),
+                    'board' => RouteBoard(memory: st, persist: save),
                     _ => [home, gameHome, stats][tab](),
                   },
                 ),
@@ -956,3 +929,360 @@ class WinterPrint extends CustomPainter {
   bool shouldRepaint(WinterPrint oldDelegate) => false;
 }
 
+const panel = Color(0xff102a35),
+    gridInk = Color(0xff34535f),
+    live = Color(0xff6ee7c7),
+    steel = Color(0xffb4c1c4);
+const layouts = <List<int>>[
+  [4, 5, 1, 2, 6, 7],
+  [10, 11, 6, 7, 12, 17, 18, 13, 14],
+  [18, 19, 13, 7, 8, 14, 20, 21, 15, 9, 10, 16, 22, 23],
+];
+const widths = [4, 5, 6];
+int spin(int v) => ((v << 1) & 15) | (v >> 3);
+int direction(int a, int b, int w) => b == a - w
+    ? 1
+    : b == a + 1
+    ? 2
+    : b == a + w
+    ? 4
+    : 8;
+List<int> blueprint(int level) {
+  final w = widths[level], path = layouts[level], rng = Random(137 + level);
+  final masks = List.generate(w * w, (i) => [0, 0, 3, 5][rng.nextInt(4)]);
+  for (int k = 0; k < path.length; k++) {
+    final i = path[k];
+    masks[i] =
+        (k == 0 ? 8 : direction(i, path[k - 1], w)) |
+        (k == path.length - 1 ? 2 : direction(i, path[k + 1], w));
+  }
+  return masks;
+}
+
+Set<int> connected(List<int> m, int w, int start) {
+  final found = <int>{};
+  if (m[start] & 8 == 0) return found;
+  final todo = [start];
+  while (todo.isNotEmpty) {
+    final i = todo.removeLast();
+    if (!found.add(i)) continue;
+    for (var k = 0; k < 4; k++) {
+      final x = i % w + [0, 1, 0, -1][k], y = i ~/ w + [-1, 0, 1, 0][k];
+      if (x < 0 || x >= w || y < 0 || y >= w || m[i] & (1 << k) == 0) continue;
+      final j = y * w + x;
+      if (m[j] & (1 << ((k + 2) % 4)) != 0 && !found.contains(j)) todo.add(j);
+    }
+  }
+  return found;
+}
+
+class TrackInk extends CustomPainter {
+  final int mask;
+  final bool active;
+  TrackInk(this.mask, this.active);
+  @override
+  void paint(Canvas c, Size s) {
+    final center = s.center(Offset.zero),
+        p = Paint()..strokeCap = StrokeCap.round;
+    c.drawRRect(
+      RRect.fromRectAndRadius(Offset.zero & s, const Radius.circular(6)),
+      p..color = const Color(0xff1b3843),
+    );
+    if (mask == 0) {
+      c.drawCircle(center, 1.4, p..color = gridInk);
+      return;
+    }
+    final ends = [
+      Offset(center.dx, 0),
+      Offset(s.width, center.dy),
+      Offset(center.dx, s.height),
+      Offset(0, center.dy),
+    ];
+    for (final width in [0.19, 0.075]) {
+      p.strokeWidth = s.shortestSide * width;
+      p.color = width > .1
+          ? panel
+          : active
+          ? live
+          : steel;
+      for (int k = 0; k < 4; k++) {
+        if (mask & (1 << k) != 0) c.drawLine(center, ends[k], p);
+      }
+    }
+    c.drawCircle(
+      center,
+      s.shortestSide * .085,
+      p..color = active ? live : steel,
+    );
+    c.drawCircle(center, s.shortestSide * .038, p..color = panel);
+  }
+
+  @override
+  bool shouldRepaint(TrackInk old) => old.mask != mask || old.active != active;
+}
+
+class RouteCover extends StatelessWidget {
+  final VoidCallback onTap;
+  const RouteCover({required this.onTap, super.key});
+  @override
+  Widget build(BuildContext context) => Material(
+    color: panel,
+    borderRadius: BorderRadius.circular(25),
+    clipBehavior: Clip.antiAlias,
+    child: InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Маршрут детали',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                const Icon(Icons.route, color: live),
+              ],
+            ),
+            const SizedBox(height: 14),
+            ExcludeSemantics(
+              child: SizedBox(
+                height: 75,
+                child: Row(
+                  children: [
+                    for (final m in [10, 9, 6, 10, 10])
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: CustomPaint(
+                            painter: TrackInk(m, true),
+                            child: const SizedBox.expand(),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+            const Row(
+              children: [
+                Expanded(
+                  child: Text('Склад → цех', style: TextStyle(color: steel)),
+                ),
+                Icon(Icons.play_circle_fill, color: orange, size: 39),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class RouteBoard extends StatefulWidget {
+  final Map memory;
+  final VoidCallback persist;
+  const RouteBoard({required this.memory, required this.persist, super.key});
+  @override
+  State<RouteBoard> createState() => _BoardState();
+}
+
+class _BoardState extends State<RouteBoard> {
+  int level = 0, moves = 0;
+  List<int> cells = [];
+  Set<int> lit = {};
+  bool won = false;
+  @override
+  void initState() {
+    super.initState();
+    final v = widget.memory['routeBoard'];
+    if (v is Map &&
+        v['level'] is int &&
+        (v['level'] as int) >= 0 &&
+        (v['level'] as int) < layouts.length) {
+      level = v['level'];
+      final data = v['cells'];
+      if (data is List &&
+          data.length == widths[level] * widths[level] &&
+          data.every((x) => x is int && x >= 0 && x < 16)) {
+        cells = List<int>.from(data);
+        moves = v['moves'] ?? 0;
+        refresh();
+        return;
+      }
+    }
+    start(0);
+  }
+
+  void refresh() {
+    final path = layouts[level];
+    lit = connected(cells, widths[level], path.first);
+    won = lit.contains(path.last) && cells[path.last] & 2 != 0;
+  }
+
+  void save() {
+    widget.memory['routeBoard'] = {
+      'level': level,
+      'moves': moves,
+      'cells': cells,
+    };
+    widget.persist();
+  }
+
+  void start(int n) {
+    level = n;
+    moves = 0;
+    cells = blueprint(n);
+    final rng = Random(687 + n);
+    for (int i = 0; i < cells.length; i++) {
+      final r = rng.nextInt(4);
+      for (int j = 0; j < r; j++) {
+        cells[i] = spin(cells[i]);
+      }
+    }
+    final start = layouts[n].first;
+    while (cells[start] & 8 != 0) {
+      cells[start] = spin(cells[start]);
+    }
+    refresh();
+    save();
+  }
+
+  void rotate(int i) {
+    if (won || cells[i] == 0) return;
+    setState(() {
+      cells[i] = spin(cells[i]);
+      moves++;
+      refresh();
+      save();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final w = widths[level], path = layouts[level];
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 24),
+      children: [
+        Text(
+          'Маршрут детали',
+          style: Theme.of(
+            context,
+          ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          won
+              ? 'Деталь доставлена в цех.'
+              : 'Нажимай на секции, чтобы повернуть их. Соедини склад слева с цехом справа.',
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: BoxDecoration(
+            color: panel,
+            borderRadius: BorderRadius.circular(22),
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Схема ${level + 1} / 3',
+                    style: const TextStyle(
+                      color: live,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text('Ходы: $moves', style: const TextStyle(color: steel)),
+                ],
+              ),
+              const SizedBox(height: 12),
+              for (int row = 0; row < w; row++)
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 18,
+                      child: row == path.first ~/ w
+                          ? const Icon(
+                              Icons.double_arrow,
+                              size: 18,
+                              color: live,
+                            )
+                          : null,
+                    ),
+                    for (int col = 0; col < w; col++)
+                      Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(1),
+                            child: Semantics(
+                              button: cells[row * w + col] != 0,
+                              label: 'Секция ${row + 1}, ${col + 1}',
+                              child: GestureDetector(
+                                onTap: () => rotate(row * w + col),
+                                child: CustomPaint(
+                                  painter: TrackInk(
+                                    cells[row * w + col],
+                                    lit.contains(row * w + col),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    SizedBox(
+                      width: 18,
+                      child: row == path.last ~/ w
+                          ? Icon(
+                              Icons.flag,
+                              size: 18,
+                              color: won ? live : orange,
+                            )
+                          : null,
+                    ),
+                  ],
+                ),
+              const SizedBox(height: 12),
+              const Row(
+                children: [
+                  Icon(Icons.double_arrow, color: live, size: 16),
+                  Text(' Склад', style: TextStyle(color: steel)),
+                  Spacer(),
+                  Text('Цех ', style: TextStyle(color: steel)),
+                  Icon(Icons.flag, color: orange, size: 16),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 14),
+        if (won)
+          FilledButton(
+            onPressed: () => setState(() => start((level + 1) % 3)),
+            child: Text(level == 2 ? 'Пройти заново' : 'Следующая схема'),
+          )
+        else
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              onPressed: () => setState(() => start(level)),
+              icon: const Icon(Icons.replay),
+              label: const Text('Сначала'),
+            ),
+          ),
+      ],
+    );
+  }
+}
