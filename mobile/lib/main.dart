@@ -11,8 +11,8 @@ external void writeValue(JSString key, JSString value);
 
 const key = 'terminal-course-v1';
 const orange = Color(0xfff58243),
-    ink = Color(0xff193c3c),
-    paper = Color(0xfff6f2e7);
+    ink = Color(0xff17333b),
+    paper = Color(0xfff4f7f8);
 const mods = [
   'Знакомство с 1С',
   'Устройство базы',
@@ -129,7 +129,7 @@ class _CourseState extends State<Course> {
     style: const TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w600,
-      color: Color(0xff60665a),
+      color: Color(0xff53666a),
     ),
   );
   Widget gap([double n = 16]) => SizedBox(height: n);
@@ -152,7 +152,15 @@ class _CourseState extends State<Course> {
     margin: const EdgeInsets.only(bottom: 8),
     child: ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      leading: Icon(icon, color: ink),
+      leading: Container(
+        width: 42,
+        height: 42,
+        decoration: BoxDecoration(
+          color: const Color(0xffe5eff0),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(icon, color: ink, size: 21),
+      ),
       title: Text(t),
       subtitle: sub == null ? null : Text(sub),
       trailing: const Icon(Icons.chevron_right),
@@ -166,7 +174,7 @@ class _CourseState extends State<Course> {
   Widget home() {
     final m = ends.indexWhere((end) => i < end);
     return list([
-      title('Моё обучение'),
+      title('Мой путь'),
       gap(20),
       Container(
         padding: const EdgeInsets.all(24),
@@ -284,76 +292,144 @@ class _CourseState extends State<Course> {
     ]);
   }
 
-  Widget lesson() {
-    final fields = ['theory', 'note', 'practice', 'question'];
-    return list([
-      label('Урок ${i + 1} из 60'),
-      gap(6),
-      title(current['title']),
-      gap(),
-      Wrap(
-        spacing: 5,
-        children: [
-          for (int n = 0; n < 4; n++)
-            ChoiceChip(
-              showCheckmark: false,
-              label: Text(steps[n]),
-              selected: n == stage,
-              onSelected: (_) => move(n),
-            ),
-        ],
-      ),
-      gap(),
-      SelectableText(
-        current[fields[stage]],
-        style: const TextStyle(fontSize: 18, height: 1.55),
-      ),
-      gap(),
-      if (stage == 2)
-        CheckboxListTile(
-          contentPadding: EdgeInsets.zero,
-          title: const Text('Выполнил в 1С'),
-          value: checked('pc', i),
-          onChanged: (v) => edit(() => marks('pc')['$i'] = v),
+  Future<void> chooseStage() async {
+    final n = await showModalBottomSheet<int>(
+      context: context,
+      showDragHandle: true,
+      useSafeArea: true,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (int n = 0; n < steps.length; n++)
+              ListTile(
+                leading: Icon(stepIcons[n]),
+                title: Text(steps[n]),
+                trailing: n == stage ? const Icon(Icons.check_circle) : null,
+                onTap: () => Navigator.pop(ctx, n),
+              ),
+          ],
         ),
-      if (stage == 3) ...[
-        for (int n = 0; n < current['choices'].length; n++)
-          tile(
-            Icons.radio_button_unchecked,
-            current['choices'][n],
-            () => edit(() {
-              final ok = n == current['answer'];
-              feedback = ok ? 'Верно!' : 'Попробуй ещё раз';
-              if (ok) marks('quiz')['$i'] = true;
-            }),
+      ),
+    );
+    if (n != null && mounted) move(n);
+  }
+
+  static const stepIcons = [
+    Icons.chrome_reader_mode_outlined,
+    Icons.edit_note_rounded,
+    Icons.computer_rounded,
+    Icons.task_alt_rounded,
+  ];
+  Widget lesson() {
+    final field = ['theory', 'note', 'practice', 'question'][stage];
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          child: Row(
+            children: [
+              for (int n = 0; n < 4; n++)
+                Expanded(
+                  child: Container(
+                    height: 4,
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                    decoration: BoxDecoration(
+                      color: n <= stage ? orange : const Color(0xffe3e8e9),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+            ],
           ),
-        Text(
-          feedback.isEmpty && checked('quiz', i)
-              ? 'Проверка пройдена'
-              : feedback,
+        ),
+        Expanded(
+          child: list([
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: chooseStage,
+                icon: Icon(stepIcons[stage], size: 18),
+                label: Text('${steps[stage]}  ·  ${stage + 1} из 4  ⌄'),
+              ),
+            ),
+            gap(8),
+            title(current['title']),
+            gap(24),
+            Container(
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(22),
+                border: Border.all(color: const Color(0xffe3e8e9)),
+              ),
+              child: SelectableText(
+                current[field],
+                style: TextStyle(
+                  fontSize: 18,
+                  height: 1.54,
+                  color: ink,
+                  fontFamily:
+                      stage == 1 && current[field].toString().contains(';')
+                      ? 'monospace'
+                      : null,
+                ),
+              ),
+            ),
+            if (stage == 2)
+              CheckboxListTile(
+                title: const Text('Выполнил в 1С'),
+                value: checked('pc', i),
+                onChanged: (v) => edit(() => marks('pc')['$i'] = v),
+              ),
+            if (stage == 3) ...[
+              gap(),
+              for (int n = 0; n < current['choices'].length; n++)
+                tile(
+                  Icons.radio_button_unchecked,
+                  current['choices'][n],
+                  () => edit(() {
+                    final ok = n == current['answer'];
+                    feedback = ok ? 'Верно!' : 'Попробуй ещё раз';
+                    if (ok) marks('quiz')['$i'] = true;
+                  }),
+                ),
+              Semantics(
+                liveRegion: true,
+                child: Text(
+                  feedback.isEmpty && checked('quiz', i)
+                      ? 'Проверка пройдена'
+                      : feedback,
+                ),
+              ),
+            ],
+          ]),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 14),
+          child: action(
+            [
+              'Перейти к записи',
+              'Открыть практику',
+              'Проверить себя',
+              i < 59 ? 'Следующий урок' : 'Завершить',
+            ][stage],
+            () {
+              if (stage < 3) {
+                move(stage + 1);
+              } else if (i < 59) {
+                open(i + 1);
+              } else {
+                setState(() {
+                  screen = 'home';
+                  tab = 2;
+                });
+              }
+            },
+          ),
         ),
       ],
-      gap(),
-      action(
-        stage < 3
-            ? 'Дальше'
-            : i < 59
-            ? 'Следующий урок'
-            : 'Завершить',
-        () {
-          if (stage < 3) {
-            move(stage + 1);
-          } else if (i < 59) {
-            open(i + 1);
-          } else {
-            setState(() {
-              screen = 'home';
-              tab = 2;
-            });
-          }
-        },
-      ),
-    ]);
+    );
   }
 
   void round(int n) {
@@ -410,8 +486,65 @@ class _CourseState extends State<Course> {
 
   Widget gameHome() => list([
     title('Тренажёры'),
-    gap(),
-    for (int n = 0; n < 4; n++) tile(gameIcons[n], games[n], () => round(n)),
+    gap(20),
+    LayoutBuilder(
+      builder: (context, box) {
+        final width = box.maxWidth < 295
+            ? box.maxWidth
+            : (box.maxWidth - 12) / 2;
+        const swatches = [
+          Color(0xffd8edec),
+          Color(0xffffddbd),
+          Color(0xffe4e0f3),
+          Color(0xffdee8fa),
+        ];
+        return Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: [
+            for (int n = 0; n < 4; n++)
+              SizedBox(
+                width: width,
+                child: Material(
+                  color: swatches[n],
+                  borderRadius: BorderRadius.circular(22),
+                  clipBehavior: Clip.antiAlias,
+                  child: InkWell(
+                    onTap: () => round(n),
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(gameIcons[n], size: 32, color: ink),
+                          gap(26),
+                          Text(
+                            games[n],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              height: 1.15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          gap(6),
+                          Text(
+                            [
+                              'Вспомнить слово',
+                              'Посчитать остаток',
+                              'Исправить код',
+                              'Расставить строки',
+                            ][n],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
+    ),
   ]);
   Widget gameRound() => list([
     label(games[mode]),
@@ -451,6 +584,14 @@ class _CourseState extends State<Course> {
   ]);
   Widget stats() => list([
     title('Прогресс'),
+    gap(20),
+    LinearProgressIndicator(
+      value: completed / 60,
+      minHeight: 8,
+      borderRadius: BorderRadius.circular(8),
+      color: orange,
+      backgroundColor: const Color(0xffdbe5e7),
+    ),
     gap(),
     for (final pair in [
       ['Завершено уроков', '$completed / 60'],
@@ -485,8 +626,8 @@ class _CourseState extends State<Course> {
           leading: screen == 'home'
               ? null
               : IconButton(onPressed: back, icon: const Icon(Icons.arrow_back)),
-          title: const Text(
-            'Терминал 1С',
+          title: Text(
+            screen == 'lesson' ? 'Урок ${i + 1} из 60' : 'Терминал 1С',
             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
           ),
           centerTitle: false,
@@ -513,9 +654,9 @@ class _CourseState extends State<Course> {
         bottomNavigationBar: screen != 'home'
             ? null
             : NavigationBar(
-                height: 68,
-                backgroundColor: paper,
-                indicatorColor: const Color(0xffffd8bf),
+                height: 66,
+                backgroundColor: Colors.white,
+                indicatorColor: const Color(0xffd3e8e9),
                 selectedIndex: tab,
                 onDestinationSelected: (v) => setState(() => tab = v),
                 destinations: const [
@@ -814,3 +955,4 @@ class WinterPrint extends CustomPainter {
   @override
   bool shouldRepaint(WinterPrint oldDelegate) => false;
 }
+
