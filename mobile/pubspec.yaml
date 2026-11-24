@@ -1,0 +1,12 @@
+name: terminal_course
+description: Практикум 1С
+publish_to: none
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/course.json
