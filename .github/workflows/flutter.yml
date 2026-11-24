@@ -11,9 +11,8 @@ concurrency:
   group: flutter-pages
   cancel-in-progress: true
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    environment: github-pages
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
@@ -25,4 +24,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: mobile/build/web
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
       - uses: actions/deploy-pages@v4
