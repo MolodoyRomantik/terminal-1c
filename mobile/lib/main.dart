@@ -198,21 +198,18 @@ class _CourseState extends State<Course> {
 
   Widget home() {
     final m = ends.indexWhere((end) => i < end);
-    final start = (i - 2).clamp(0, 54);
     return list([
-      title('Мой путь'), gap(16),
-      SingleChildScrollView(scrollDirection: Axis.horizontal, child: Row(children: [
-        for(int n=start; n<start+6; n++) Padding(padding:const EdgeInsets.only(right:7),child:Semantics(selected:n==i,button:true,label:'Урок ${n+1}',child:Material(color:n==i?lime:graphite,borderRadius:BorderRadius.circular(14),child:InkWell(borderRadius:BorderRadius.circular(14),onTap:()=>open(n),child:Container(width:54,padding:const EdgeInsets.symmetric(vertical:10),child:Column(children:[
-          Text('Урок',style:TextStyle(fontSize:12,color:n==i?ink:soft)),
-          Text('${n+1}'.padLeft(2,'0'),style:TextStyle(fontSize:19,fontWeight:FontWeight.w700,color:n==i?ink:Colors.white)),
-          gap(4),Icon(checked('pc',n)&&checked('quiz',n)?Icons.check_circle:n==i?Icons.play_circle_fill:Icons.circle_outlined,size:15,color:n==i?ink:checked('quiz',n)?lilac:soft)
-        ]))))))
-      ])),gap(20),
-      Container(padding:const EdgeInsets.all(20),decoration:BoxDecoration(color:graphite,borderRadius:BorderRadius.circular(22)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-        Text(mods[m],style:const TextStyle(color:lilac,fontWeight:FontWeight.w600)),gap(8),
-        Text(current['title'],style:const TextStyle(fontSize:25,height:1.1,fontWeight:FontWeight.w700)),gap(18),
-        action(st.containsKey('at')?'Продолжить урок':'Начать урок',()=>open(i))
-      ])),gap(20),rings(),gap(14),
+      Row(children:[Expanded(child:title('Мой путь')), TextButton(onPressed:()=>setState((){module=m;screen='catalog';}),child:const Text('Все уроки'))]),
+      gap(14),
+      Container(clipBehavior:Clip.antiAlias,decoration:BoxDecoration(color:graphite,borderRadius:BorderRadius.circular(24)),child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+        const AspectRatio(aspectRatio:2.8,child:CustomPaint(painter:BearingStudy())),
+        Padding(padding:const EdgeInsets.fromLTRB(20,16,20,20),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+          Text('Урок ${i+1} / 60  ·  ${mods[m]}',style:const TextStyle(color:soft,fontSize:13)),gap(9),
+          Text(current['title'],style:const TextStyle(fontSize:26,height:1.12,fontWeight:FontWeight.w700)),gap(18),
+          action(st.containsKey('at')?'Продолжить урок':'Начать урок',()=>open(i))
+        ]))
+      ])),
+      gap(20),rings(),gap(16),
       tile(Icons.library_books_outlined,'Программа курса',()=>setState((){module=m;screen='catalog';}),sub:'10 модулей · 60 уроков')
     ]);
   }
@@ -311,16 +308,16 @@ class _CourseState extends State<Course> {
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                color: graphite,
+                color:stage==1?const Color(0xffe9e5d7):graphite,
                 borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: raised),
+                border: Border.all(color:stage==1?const Color(0xffcbc7b9):raised),
               ),
               child: SelectableText(
                 current[field],
                 style: TextStyle(
                   fontSize: 18,
                   height: 1.54,
-                  color: Colors.white,
+                  color:stage==1?ink:Colors.white,
                   fontFamily:
                       stage == 1 && current[field].toString().contains(';')
                       ? 'monospace'
@@ -446,8 +443,6 @@ class _CourseState extends State<Course> {
   Widget gameHome() => list([
     title('Игровая мастерская'),
     gap(),
-    RouteCover(onTap: launchBoard),
-    gap(24),
     label('Тренажёры'),
     gap(8),
     for (int n = 0; n < games.length; n++)
@@ -462,6 +457,7 @@ class _CourseState extends State<Course> {
           'Расставить строки',
         ][n],
       ),
+    tile(Icons.route_outlined,'Маршрут детали',launchBoard),
   ]);
   Widget gameRound() => list([
     label(games[mode]),
@@ -547,7 +543,7 @@ class _CourseState extends State<Course> {
         ),
         bottomNavigationBar: screen!='home' ? null : SafeArea(top:false,child:Center(heightFactor:1,child:ConstrainedBox(constraints:const BoxConstraints(maxWidth:620),child:Container(
           margin:const EdgeInsets.fromLTRB(16,4,16,10),padding:const EdgeInsets.all(6),decoration:BoxDecoration(color:graphite,borderRadius:BorderRadius.circular(30)),
-          child:Row(children:[for(int n=0;n<3;n++)Expanded(child:Semantics(button:true,selected:tab==n,label:['Путь','Игры','Прогресс'][n],child:InkWell(borderRadius:BorderRadius.circular(24),onTap:()=>setState(()=>tab=n),child:AnimatedContainer(duration:const Duration(milliseconds:180),constraints:const BoxConstraints(minHeight:48),alignment:Alignment.center,decoration:BoxDecoration(color:tab==n?lime:Colors.transparent,borderRadius:BorderRadius.circular(24)),child:Wrap(alignment:WrapAlignment.center,crossAxisAlignment:WrapCrossAlignment.center,spacing:5,children:[Icon([Icons.auto_stories_outlined,Icons.grid_view_rounded,Icons.donut_large][n],size:19,color:tab==n?ink:soft),if(tab==n)Text(['Путь','Игры','Прогресс'][n],style:const TextStyle(color:ink,fontWeight:FontWeight.w700))])))))])
+          child:Row(children:[for(int n=0;n<3;n++)Expanded(child:Semantics(button:true,selected:tab==n,label:['Путь','Игры','Прогресс'][n],child:InkWell(borderRadius:BorderRadius.circular(24),onTap:()=>setState(()=>tab=n),child:AnimatedContainer(duration:const Duration(milliseconds:180),constraints:const BoxConstraints(minHeight:48),alignment:Alignment.center,decoration:BoxDecoration(color:tab==n?lime:Colors.transparent,borderRadius:BorderRadius.circular(24)),child:Wrap(alignment:WrapAlignment.center,crossAxisAlignment:WrapCrossAlignment.center,spacing:5,children:[Icon([Icons.auto_stories_outlined,Icons.grid_view_rounded,Icons.donut_large][n],size:19,color:tab==n?ink:soft),Text(['Путь','Игры','Прогресс'][n],style:TextStyle(color:tab==n?ink:soft,fontSize:12,fontWeight:FontWeight.w700))])))))])
         )))),
       ),
     );
@@ -1185,4 +1181,44 @@ class _BoardState extends State<RouteBoard> {
       ],
     );
   }
+}
+
+class BearingStudy extends CustomPainter {
+  const BearingStudy();
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.save();
+    canvas.scale(size.width / 400, size.height / 143);
+    final frame = const Rect.fromLTWH(0, 0, 400, 143);
+    final paint = Paint();
+    canvas.drawRect(frame, paint..shader=const LinearGradient(colors:[Color(0xff26312e),Color(0xff182220)],begin:Alignment.topLeft,end:Alignment.bottomRight).createShader(frame));
+    paint.shader=null;
+    for(var x=0;x<400;x+=12){for(var y=0;y<143;y+=12){canvas.drawCircle(Offset(x+3,y+3),0.65,paint..color=const Color(0xff46524c));}}
+    canvas.save();
+    canvas.translate(214,68);canvas.rotate(-.29);canvas.scale(1,.67);
+    final shades=[const Color(0xfff5f5de),const Color(0xff91a39a),const Color(0xff344941),const Color(0xffc3cfc5),const Color(0xff6b8175),const Color(0xfff5f5de)];
+    void ring(double outer,double inner,double dy, List<Color> colors) {
+      final circle=Rect.fromCircle(center:Offset(0,dy),radius:outer);
+      final path=Path()..fillType=PathFillType.evenOdd..addOval(circle)..addOval(Rect.fromCircle(center:Offset(0,dy),radius:inner));
+      canvas.drawPath(path,paint..shader=SweepGradient(colors:colors).createShader(circle));
+      paint.shader=null;
+    }
+    for(var k=14;k>=0;k-=2){ring(78,62,k.toDouble(),k==0?shades:[const Color(0xff596e62),const Color(0xff263e33),const Color(0xff92a595)]);}
+    for(var k=0;k<10;k++){
+      final theta=k*pi/5;
+      final xy=Offset(cos(theta)*54,sin(theta)*54+2);
+      final r=Rect.fromCircle(center:xy,radius:8);
+      canvas.drawOval(r,paint..shader=const RadialGradient(center:Alignment(-.45,-.5),radius:1,colors:[Colors.white,Color(0xffb3c9b5),Color(0xff45594b),Color(0xff18231d)]).createShader(r));
+      paint.shader=null;
+    }
+    ring(46,33,5,shades);ring(46,33,0,[const Color(0xffadc94d),const Color(0xffe7ff89),const Color(0xff778a3a),const Color(0xffc8e871),const Color(0xffadc94d)]);
+    canvas.restore();
+    paint.color=const Color(0xff98afa0);paint.strokeWidth=.8;
+    canvas.drawLine(const Offset(270,45),const Offset(293,25),paint);
+    canvas.drawLine(const Offset(293,25),const Offset(350,25),paint);
+    final legend=TextPainter(text:const TextSpan(text:'6205',style:TextStyle(color:Color(0xffc0cebd),fontFamily:'monospace',fontSize:11,letterSpacing:2)),textDirection:TextDirection.ltr)..layout();
+    legend.paint(canvas,const Offset(308,9));legend.dispose();
+    canvas.restore();
+  }
+  @override bool shouldRepaint(BearingStudy old)=>false;
 }
