@@ -10,9 +10,10 @@ external JSString? readValue(JSString key);
 external void writeValue(JSString key, JSString value);
 
 const key = 'terminal-course-v1';
-const orange = Color(0xfff58243),
-    ink = Color(0xff17333b),
-    paper = Color(0xfff4f7f8);
+const lime = Color(0xffb4f447),
+    ink = Color(0xff101110),
+    paper = Color(0xff101110);
+const graphite = Color(0xff202120), raised = Color(0xff2d2e2c), lilac = Color(0xffbd92ff), soft = Color(0xffb4b5b1);
 const mods = [
   'Знакомство с 1С',
   'Устройство базы',
@@ -47,7 +48,7 @@ Future<void> main() async {
       title: 'Терминал 1С',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: orange, surface: paper),
+        colorScheme: ColorScheme.fromSeed(seedColor: lime, brightness: Brightness.dark, surface: graphite).copyWith(primary:lime, onPrimary:ink),
         scaffoldBackgroundColor: paper,
       ),
       home: Course(data, state),
@@ -129,14 +130,14 @@ class _CourseState extends State<Course> {
     style: const TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w600,
-      color: Color(0xff53666a),
+      color: soft,
     ),
   );
   Widget gap([double n = 16]) => SizedBox(height: n);
   Widget action(String t, VoidCallback? fn) => FilledButton(
     onPressed: fn,
     style: FilledButton.styleFrom(
-      backgroundColor: orange,
+      backgroundColor: lime,
       foregroundColor: ink,
       minimumSize: const Size.fromHeight(52),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -147,7 +148,7 @@ class _CourseState extends State<Course> {
     ),
   );
   Widget tile(IconData icon, String t, VoidCallback fn, {String? sub}) => Card(
-    color: Colors.white,
+    color: graphite,
     elevation: 0,
     margin: const EdgeInsets.only(bottom: 8),
     child: ListTile(
@@ -156,10 +157,10 @@ class _CourseState extends State<Course> {
         width: 42,
         height: 42,
         decoration: BoxDecoration(
-          color: const Color(0xffe5eff0),
+          color: raised,
           borderRadius: BorderRadius.circular(14),
         ),
-        child: Icon(icon, color: ink, size: 21),
+        child: Icon(icon, color: lilac, size: 21),
       ),
       title: Text(t),
       subtitle: sub == null ? null : Text(sub),
@@ -171,104 +172,48 @@ class _CourseState extends State<Course> {
     padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
     children: children,
   );
+
+  int marked(String field) => marks(field).values.where((v) => v == true).length;
+
+  Widget progressCard(String name, IconData icon, int value, Color accent) {
+    return Expanded(child: Container(
+      padding: const EdgeInsets.fromLTRB(14, 16, 14, 18),
+      decoration: BoxDecoration(color: graphite, borderRadius: BorderRadius.circular(22)),
+      child: Column(children: [
+        Row(children: [Icon(icon, color: accent, size: 18), const SizedBox(width: 7),
+          Expanded(child: Text(name, style: const TextStyle(fontWeight: FontWeight.w600)))]),
+        gap(14),
+        SizedBox.square(dimension: 90, child: Stack(alignment: Alignment.center, children: [
+          SizedBox.expand(child: CircularProgressIndicator(value: value / 60, strokeWidth: 5, backgroundColor: raised, color: accent)),
+          Column(mainAxisSize: MainAxisSize.min, children: [Text('$value', style: const TextStyle(fontSize: 26,fontWeight: FontWeight.w700)),const Text('из 60',style: TextStyle(fontSize:12,color:soft))])
+        ]))
+      ])));
+  }
+
+  Widget rings() => Row(children:[
+    progressCard('Проверки', Icons.task_alt, marked('quiz'), lilac),
+    const SizedBox(width: 10),
+    progressCard('Практика', Icons.terminal, marked('pc'), lime)
+  ]);
+
   Widget home() {
     final m = ends.indexWhere((end) => i < end);
+    final start = (i - 2).clamp(0, 54);
     return list([
-      title('Мой путь'),
-      gap(20),
-      Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: ink,
-          borderRadius: BorderRadius.circular(28),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.memory_rounded, color: orange),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    mods[m],
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                ),
-                const Text(
-                  '1С',
-                  style: TextStyle(
-                    color: orange,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
-            ),
-            gap(14),
-            const WinterPostcard(),
-            gap(18),
-            Text(
-              'УРОК ${i + 1} / 60',
-              style: const TextStyle(
-                color: orange,
-                letterSpacing: 1.3,
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-              ),
-            ),
-            gap(8),
-            Text(
-              current['title'],
-              style: const TextStyle(
-                fontSize: 29,
-                height: 1.1,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            gap(22),
-            action(
-              st.containsKey('at') ? 'Продолжить урок' : 'Начать урок',
-              () => open(i),
-            ),
-          ],
-        ),
-      ),
-      gap(20),
-      Row(
-        children: [
-          Expanded(child: label('Пройдено уроков')),
-          Text('$completed / 60'),
-        ],
-      ),
-      gap(8),
-      LinearProgressIndicator(
-        value: completed / 60,
-        color: orange,
-        backgroundColor: const Color(0xffdfdfd7),
-        minHeight: 6,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      gap(22),
-      tile(
-        Icons.library_books_outlined,
-        'Программа курса',
-        () {
-          setState(() {
-            module = m;
-            screen = 'catalog';
-          });
-        },
-        sub: '10 модулей · 60 уроков',
-      ),
-      gap(8),
-      tile(
-        Icons.route_outlined,
-        'Маршрут детали',
-        launchBoard,
-        sub: 'Головоломка мастерской',
-      ),
+      title('Мой путь'), gap(16),
+      SingleChildScrollView(scrollDirection: Axis.horizontal, child: Row(children: [
+        for(int n=start; n<start+6; n++) Padding(padding:const EdgeInsets.only(right:7),child:Semantics(selected:n==i,button:true,label:'Урок ${n+1}',child:Material(color:n==i?lime:graphite,borderRadius:BorderRadius.circular(14),child:InkWell(borderRadius:BorderRadius.circular(14),onTap:()=>open(n),child:Container(width:54,padding:const EdgeInsets.symmetric(vertical:10),child:Column(children:[
+          Text('Урок',style:TextStyle(fontSize:12,color:n==i?ink:soft)),
+          Text('${n+1}'.padLeft(2,'0'),style:TextStyle(fontSize:19,fontWeight:FontWeight.w700,color:n==i?ink:Colors.white)),
+          gap(4),Icon(checked('pc',n)&&checked('quiz',n)?Icons.check_circle:n==i?Icons.play_circle_fill:Icons.circle_outlined,size:15,color:n==i?ink:checked('quiz',n)?lilac:soft)
+        ]))))))
+      ])),gap(20),
+      Container(padding:const EdgeInsets.all(20),decoration:BoxDecoration(color:graphite,borderRadius:BorderRadius.circular(22)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+        Text(mods[m],style:const TextStyle(color:lilac,fontWeight:FontWeight.w600)),gap(8),
+        Text(current['title'],style:const TextStyle(fontSize:25,height:1.1,fontWeight:FontWeight.w700)),gap(18),
+        action(st.containsKey('at')?'Продолжить урок':'Начать урок',()=>open(i))
+      ])),gap(20),rings(),gap(14),
+      tile(Icons.library_books_outlined,'Программа курса',()=>setState((){module=m;screen='catalog';}),sub:'10 модулей · 60 уроков')
     ]);
   }
 
@@ -342,7 +287,7 @@ class _CourseState extends State<Course> {
                     height: 4,
                     margin: const EdgeInsets.symmetric(horizontal: 2),
                     decoration: BoxDecoration(
-                      color: n <= stage ? orange : const Color(0xffe3e8e9),
+                      color: n <= stage ? lime : raised,
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -366,16 +311,16 @@ class _CourseState extends State<Course> {
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: graphite,
                 borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: const Color(0xffe3e8e9)),
+                border: Border.all(color: raised),
               ),
               child: SelectableText(
                 current[field],
                 style: TextStyle(
                   fontSize: 18,
                   height: 1.54,
-                  color: ink,
+                  color: Colors.white,
                   fontFamily:
                       stage == 1 && current[field].toString().contains(';')
                       ? 'monospace'
@@ -554,36 +499,11 @@ class _CourseState extends State<Course> {
       action('Ещё задание', () => round(mode)),
     ],
   ]);
-  Widget stats() => list([
-    title('Прогресс'),
-    gap(20),
-    LinearProgressIndicator(
-      value: completed / 60,
-      minHeight: 8,
-      borderRadius: BorderRadius.circular(8),
-      color: orange,
-      backgroundColor: const Color(0xffdbe5e7),
-    ),
-    gap(),
-    for (final pair in [
-      ['Завершено уроков', '$completed / 60'],
-      [
-        'Практика в 1С',
-        '${marks('pc').values.where((v) => v == true).length} / 60',
-      ],
-      [
-        'Проверки уроков',
-        '${marks('quiz').values.where((v) => v == true).length} / 60',
-      ],
-      ['Верные ответы в играх', "${st['good'] ?? 0} / ${st['total'] ?? 0}"],
-    ])
-      Card(
-        elevation: 0,
-        color: Colors.white,
-        child: ListTile(title: Text(pair[0]), trailing: Text(pair[1])),
-      ),
-    gap(),
-    label('Прогресс сохраняется на этом устройстве.'),
+  Widget stats()=>list([
+    title('Прогресс'),gap(24),rings(),gap(16),
+    Card(color:graphite,child:ListTile(title:const Text('Завершено уроков'),trailing:Text('$completed / 60'))),
+    Card(color:graphite,child:ListTile(title:const Text('Верные ответы в играх'),trailing:Text("${st['good']??0} / ${st['total']??0}"))),
+    gap(14),label('Прогресс сохраняется на этом устройстве.')
   ]);
   @override
   Widget build(BuildContext context) {
@@ -595,6 +515,7 @@ class _CourseState extends State<Course> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: paper,
+          scrolledUnderElevation: 0,
           leading: screen == 'home'
               ? null
               : IconButton(onPressed: back, icon: const Icon(Icons.arrow_back)),
@@ -624,31 +545,10 @@ class _CourseState extends State<Course> {
             ),
           ),
         ),
-        bottomNavigationBar: screen != 'home'
-            ? null
-            : NavigationBar(
-                height: 66,
-                backgroundColor: Colors.white,
-                indicatorColor: const Color(0xffd3e8e9),
-                selectedIndex: tab,
-                onDestinationSelected: (v) => setState(() => tab = v),
-                destinations: const [
-                  NavigationDestination(
-                    icon: Icon(Icons.auto_stories_outlined),
-                    selectedIcon: Icon(Icons.auto_stories),
-                    label: 'Путь',
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.sports_esports_outlined),
-                    selectedIcon: Icon(Icons.sports_esports),
-                    label: 'Игры',
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.bar_chart_rounded),
-                    label: 'Прогресс',
-                  ),
-                ],
-              ),
+        bottomNavigationBar: screen!='home' ? null : SafeArea(top:false,child:Center(heightFactor:1,child:ConstrainedBox(constraints:const BoxConstraints(maxWidth:620),child:Container(
+          margin:const EdgeInsets.fromLTRB(16,4,16,10),padding:const EdgeInsets.all(6),decoration:BoxDecoration(color:graphite,borderRadius:BorderRadius.circular(30)),
+          child:Row(children:[for(int n=0;n<3;n++)Expanded(child:Semantics(button:true,selected:tab==n,label:['Путь','Игры','Прогресс'][n],child:InkWell(borderRadius:BorderRadius.circular(24),onTap:()=>setState(()=>tab=n),child:AnimatedContainer(duration:const Duration(milliseconds:180),constraints:const BoxConstraints(minHeight:48),alignment:Alignment.center,decoration:BoxDecoration(color:tab==n?lime:Colors.transparent,borderRadius:BorderRadius.circular(24)),child:Wrap(alignment:WrapAlignment.center,crossAxisAlignment:WrapCrossAlignment.center,spacing:5,children:[Icon([Icons.auto_stories_outlined,Icons.grid_view_rounded,Icons.donut_large][n],size:19,color:tab==n?ink:soft),if(tab==n)Text(['Путь','Игры','Прогресс'][n],style:const TextStyle(color:ink,fontWeight:FontWeight.w700))])))))])
+        )))),
       ),
     );
   }
@@ -929,9 +829,9 @@ class WinterPrint extends CustomPainter {
   bool shouldRepaint(WinterPrint oldDelegate) => false;
 }
 
-const panel = Color(0xff102a35),
+const panel = graphite,
     gridInk = Color(0xff34535f),
-    live = Color(0xff6ee7c7),
+    live = lime,
     steel = Color(0xffb4c1c4);
 const layouts = <List<int>>[
   [4, 5, 1, 2, 6, 7],
@@ -1042,7 +942,7 @@ class RouteCover extends StatelessWidget {
                   child: Text(
                     'Маршрут детали',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: graphite,
                       fontSize: 26,
                       fontWeight: FontWeight.w800,
                     ),
@@ -1077,7 +977,7 @@ class RouteCover extends StatelessWidget {
                 Expanded(
                   child: Text('Склад → цех', style: TextStyle(color: steel)),
                 ),
-                Icon(Icons.play_circle_fill, color: orange, size: 39),
+                Icon(Icons.play_circle_fill, color: lime, size: 39),
               ],
             ),
           ],
@@ -1248,7 +1148,7 @@ class _BoardState extends State<RouteBoard> {
                           ? Icon(
                               Icons.flag,
                               size: 18,
-                              color: won ? live : orange,
+                              color: won ? live : lime,
                             )
                           : null,
                     ),
@@ -1261,7 +1161,7 @@ class _BoardState extends State<RouteBoard> {
                   Text(' Склад', style: TextStyle(color: steel)),
                   Spacer(),
                   Text('Цех ', style: TextStyle(color: steel)),
-                  Icon(Icons.flag, color: orange, size: 16),
+                  Icon(Icons.flag, color: lime, size: 16),
                 ],
               ),
             ],
