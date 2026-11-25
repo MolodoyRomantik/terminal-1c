@@ -365,8 +365,13 @@ class _CourseState extends State<Course> {
     );
   }
 
+  String chosen = '';
+  int taskIndex = 0;
+  final recentTask = <int,int>{};
+
   void round(int n) {
     mode = n;
+    chosen = '';
     screen = 'round';
     graded = false;
     feedback = '';
@@ -387,7 +392,10 @@ class _CourseState extends State<Course> {
                   ? 'bugs'
                   : 'ordering']
               as List;
-      final row = pool[r.nextInt(pool.length)] as List;
+      taskIndex = r.nextInt(pool.length);
+      if (pool.length > 1 && taskIndex == recentTask[n]) taskIndex = (taskIndex + 1) % pool.length;
+      recentTask[n] = taskIndex;
+      final row = pool[taskIndex] as List;
       prompt = '${row[0]}\n\n${row[1]}';
       reason = row.last;
       if (n == 3) {
@@ -443,42 +451,62 @@ class _CourseState extends State<Course> {
       ),
     tile(Icons.route_outlined,'Маршрут детали',launchBoard),
   ]);
-  Widget gameRound() => list([
-    label(games[mode]),
-    gap(),
-    SelectableText(prompt, style: const TextStyle(fontSize: 20, height: 1.4)),
-    gap(),
-    if (mode == 3) ...[
-      for (final line in selected)
-        ListTile(
-          title: Text(line),
-          onTap: graded ? null : () => setState(() => selected.remove(line)),
-        ),
-      for (final line in options.where((s) => !selected.contains(s)))
-        tile(Icons.add, line, () => setState(() => selected.add(line))),
-      if (!graded)
-        action(
-          'Проверить',
-          selected.length != ordered.length
-              ? null
-              : () => grade(selected.join('\n') == ordered.join('\n')),
-        ),
-    ] else if (!graded)
-      for (final answer in options)
-        tile(
-          Icons.radio_button_unchecked,
-          answer,
-          () => grade(answer == right),
-        ),
-    if (graded) ...[
-      title(feedback),
-      gap(),
-      Text(reason),
-      if (mode == 3) SelectableText(ordered.join('\n')),
-      gap(),
-      action('Ещё задание', () => round(mode)),
-    ],
-  ]);
+  Widget termEvidence() {
+    final card = widget.data['termCards'][taskIndex] as List;
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(color: const Color(0xffe9e6db), borderRadius: BorderRadius.circular(18)),
+      child: DefaultTextStyle(style: const TextStyle(color: ink, fontSize: 15), child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [const Icon(Icons.description_outlined, color: ink, size: 20), const SizedBox(width: 8),
+            Expanded(child: Text(card[0], style: const TextStyle(fontWeight: FontWeight.bold)))]),
+          const Divider(color: Color(0xffb6b4aa), height: 22),
+          for (int n in [1, 3]) Padding(padding: const EdgeInsets.symmetric(vertical: 3),
+            child: Row(children: [Expanded(child: Text(card[n])), const SizedBox(width: 8),
+              Flexible(child: Text(card[n+1], textAlign: TextAlign.end, style: const TextStyle(fontWeight: FontWeight.bold)))])),
+        ])),
+    );
+  }
+
+  Widget gameRound() {
+    final parts = prompt.split('\n\n');
+    final explanation = Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(color: graphite, borderRadius: BorderRadius.circular(18)),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(children: [
+          Icon(feedback=='Верно!'?Icons.check_circle:Icons.lightbulb_outline, color: feedback=='Верно!'?lime:lilac),
+          const SizedBox(width: 8), Text(feedback, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ]),
+        gap(10),
+        if (mode!=3) Text(right, style: const TextStyle(fontSize: 21,fontWeight: FontWeight.bold)),
+        if (mode==3) SelectableText(ordered.join('\n'), style: const TextStyle(fontFamily:'monospace')),
+        gap(10), Text(reason, style: const TextStyle(fontSize:16,height:1.46)),
+      ]),
+    );
+    return Column(children:[
+      Expanded(child: list([
+        label(games[mode]), gap(8), title(mode==1?'Остаток на складе':parts.first), gap(18),
+        if(mode==0)...[termEvidence(),gap(16)],
+        SelectableText(mode==1?prompt:parts[1],style:const TextStyle(fontSize:18,height:1.4,fontWeight:FontWeight.w500)),
+        if(mode==2)...[gap(12),SelectableText(parts.skip(2).join('\n\n'),style:const TextStyle(fontFamily:'monospace',color:lilac))],
+        gap(16),
+        if(!graded && mode!=3) for(final answer in options)
+          tile(Icons.radio_button_unchecked,answer,(){chosen=answer;grade(answer==right);}),
+        if(mode==3 && !graded)...[
+          for(final line in selected) ListTile(title:Text(line),onTap:()=>setState(()=>selected.remove(line))),
+          for(final line in options.where((s)=>!selected.contains(s)))tile(Icons.add,line,()=>setState(()=>selected.add(line))),
+          action('Проверить',selected.length!=ordered.length?null:()=>grade(selected.join('\n')==ordered.join('\n')))
+        ],
+        if(graded)...[
+          if(mode!=3 && chosen!=right)...[Text('Твой ответ — $chosen',style:const TextStyle(color:soft)),gap(8)],
+          if(mode==3 && feedback!='Верно!')...[label('Твой порядок'),SelectableText(selected.join('\n')),gap(8)],
+          Semantics(liveRegion:true,child:explanation)
+        ]
+      ])),
+      if(graded)Padding(padding:const EdgeInsets.fromLTRB(20,8,20,14),child:action('Ещё задание',()=>round(mode)))
+    ]);
+  }
   Widget stats()=>list([
     title('Прогресс'),gap(24),rings(),gap(16),
     Card(color:graphite,child:ListTile(title:const Text('Завершено уроков'),trailing:Text('$completed / 60'))),
