@@ -214,32 +214,16 @@ class _CourseState extends State<Course> {
     ]);
   }
 
-  Widget catalog() {
-    final start = module == 0 ? 0 : ends[module - 1];
-    return list([
-      title('Программа'),
-      gap(),
-      DropdownButton<int>(
-        isExpanded: true,
-        value: module,
-        items: [
-          for (int n = 0; n < mods.length; n++)
-            DropdownMenuItem(value: n, child: Text('${n + 1}. ${mods[n]}')),
-        ],
-        onChanged: (v) => setState(() => module = v!),
-      ),
-      gap(),
-      for (int n = start; n < ends[module]; n++)
-        tile(
-          checked('quiz', n) && checked('pc', n)
-              ? Icons.check_circle
-              : Icons.article_outlined,
-          lessons[n]['title'],
-          () => open(n),
-          sub: 'Урок ${n + 1}',
-        ),
-    ]);
-  }
+  Widget catalog() => list([
+    title('Программа курса'),gap(18),
+    for(int k=0;k<mods.length;k++) Padding(padding:const EdgeInsets.only(bottom:9),child:Material(color:graphite,borderRadius:BorderRadius.circular(18),clipBehavior:Clip.antiAlias,child:ExpansionTile(
+      initiallyExpanded:k==module,shape:const Border(),collapsedShape:const Border(),
+      leading:Text('${k+1}'.padLeft(2,'0'),style:TextStyle(color:k==module?lime:soft,fontSize:16,fontWeight:FontWeight.bold)),
+      title:Text(mods[k]), children:[
+        for(int n=k==0?0:ends[k-1];n<ends[k];n++)ListTile(leading:Icon(checked('quiz',n)&&checked('pc',n)?Icons.check_circle:Icons.circle_outlined,size:17,color:n==i?lime:soft),title:Text(lessons[n]['title']),onTap:()=>open(n))
+      ]
+    )))
+  ]);
 
   Future<void> chooseStage() async {
     final n = await showModalBottomSheet<int>(
@@ -306,7 +290,7 @@ class _CourseState extends State<Course> {
             title(current['title']),
             gap(24),
             Container(
-              padding: const EdgeInsets.all(22),
+              padding: const EdgeInsets.symmetric(horizontal:12,vertical:18),
               decoration: BoxDecoration(
                 color:stage==1?const Color(0xffe9e5d7):graphite,
                 borderRadius: BorderRadius.circular(22),
