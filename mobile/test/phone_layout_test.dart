@@ -38,7 +38,7 @@ void main() {
     await tester.tap(find.text('Игры'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Терминология'));
-    await tester.runAsync(() async { await Future<void>.delayed(const Duration(milliseconds: 200)); });
+    
     await tester.pumpAndSettle();
     expect(find.text('Слова становятся понятнее'), findsOneWidget);
     expect(find.text('Тренировка 1'), findsOneWidget);

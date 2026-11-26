@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'terminology_data.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,9 +77,7 @@ class _TerminologyPageState extends State<TerminologyPage> {
       error = null;
     });
     try {
-      final raw =
-          jsonDecode(await rootBundle.loadString('assets/terminology.json'))
-              as List;
+      final raw = terminologyData;
       final loaded = raw
           .map((item) => TermCard(Map<String, dynamic>.from(item)))
           .toList();

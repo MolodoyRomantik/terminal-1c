@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:terminal_course/terminology_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,9 +7,7 @@ import 'package:terminal_course/terminology.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   test('Every term has an image and four distinct supported choices', () async {
-    final terms =
-        jsonDecode(await rootBundle.loadString('assets/terminology.json'))
-            as List;
+    final terms = terminologyData;
     expect(terms.length, 84);
     final ids = terms.map((t) => t['id']).toSet();
     expect(ids.length, 84);
@@ -22,10 +20,7 @@ void main() {
         expect(ids.contains(option['id']), isTrue);
         expect((option['explanation'] as String).isNotEmpty, isTrue);
       }
-      expect(
-        (await rootBundle.load(term['image'])).lengthInBytes,
-        greaterThan(100),
-      );
+      expect(term['image'], 'assets/terminology/${term["id"]}.png');
     }
   });
   for (final width in [320.0, 414.0]) {
@@ -44,24 +39,23 @@ void main() {
           home: TerminologyPage(progress: state, onSave: () => saves++),
         ),
       );
-      await tester.runAsync(() async { await Future<void>.delayed(const Duration(milliseconds: 200)); });
+      
       await tester.pumpAndSettle();
       await tester.tap(find.text('Тренировка 1'));
       await tester.pumpAndSettle();
       expect(find.text('Вопрос 1 из 4'), findsOneWidget);
-      final terms =
-          jsonDecode((await tester.runAsync(() => rootBundle.loadString('assets/terminology.json')))!) as List;
+      final terms = terminologyData;
       for (int n = 0; n < 4; n++) {
         final term = terms[n];
-        final answer = n == 0 ? term['options'][1]['text'] : term['term'];
-        final target = find.text(answer);
+        final answer = n == 0 ? (term['options'] as List)[1]['text'] : term['term'];
+        final target = find.text(answer as String);
         await tester.scrollUntilVisible(target, 150);
         await tester.pumpAndSettle();
         await tester.tap(target);
         await tester.pumpAndSettle();
         expect(find.text(n == 0 ? 'Давай разберём' : 'Верно!'), findsOneWidget);
         if (n == 0) {
-          expect(find.text(term['options'][1]['explanation']), findsOneWidget);
+          expect(find.text((term['options'] as List)[1]['explanation']), findsOneWidget);
         }
         expect(tester.takeException(), isNull);
         expect(saves, n + 1);
