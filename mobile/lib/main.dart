@@ -3,6 +3,7 @@ import 'dart:js_interop';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'terminology.dart';
 
 @JS('localStorage.getItem')
 external JSString? readValue(JSString key);
@@ -209,6 +210,9 @@ class _CourseState extends State<Course> {
           action(st.containsKey('at')?'Продолжить урок':'Начать урок',()=>open(i))
         ]))
       ])),
+      gap(16),
+      tile(Icons.auto_stories_rounded, 'Терминология', () => round(0),
+        sub: 'Картинки, вопросы и понятный разбор'),
       gap(20),rings(),gap(16),
       tile(Icons.library_books_outlined,'Программа курса',()=>setState((){module=m;screen='catalog';}),sub:'10 модулей · 60 уроков')
     ]);
@@ -370,6 +374,12 @@ class _CourseState extends State<Course> {
   final recentTask = <int,int>{};
 
   void round(int n) {
+    if (n == 0) {
+      Navigator.of(context).push(MaterialPageRoute<void>(
+        builder: (_) => TerminologyPage(progress: st, onSave: save),
+      )).then((_) { if (mounted) setState(() {}); });
+      return;
+    }
     mode = n;
     chosen = '';
     screen = 'round';
@@ -443,7 +453,7 @@ class _CourseState extends State<Course> {
         games[n],
         () => round(n),
         sub: [
-          'Вспомнить слово',
+          '84 слова с картинками · по 4 вопроса',
           'Посчитать остаток',
           'Исправить код',
           'Расставить строки',
