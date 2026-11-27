@@ -19,7 +19,7 @@ class TermOption {
 }
 
 class TermCard {
-  final String id, term, question, definition, association, image, hint;
+  final String id, term, question, definition, association, image, hint, screenTitle;
   final int lesson;
   final List<TermOption> options;
   TermCard(Map<String, dynamic> json)
@@ -28,7 +28,8 @@ class TermCard {
       question = json['question'],
       definition = json['definition'],
       association = json['association'],
-      image = json['image'],
+      image = json['screenImage'],
+      screenTitle = json['screenTitle'],
       hint = json['hint'],
       lesson = json['lesson'],
       options = (json['options'] as List)
@@ -355,14 +356,14 @@ class _TerminologyPageState extends State<TerminologyPage> {
                     child: Image.asset(
                       card.image,
                       fit: BoxFit.contain,
-                      semanticLabel: 'Учебная схема. ${card.hint}',
+                      semanticLabel: 'Окно 1С. ${card.screenTitle}',
                     ),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
-                child: body(card.hint),
+                child: body(card.screenTitle),
               ),
             ],
           ),
@@ -376,7 +377,7 @@ class _TerminologyPageState extends State<TerminologyPage> {
     children: [
       Semantics(
         button: true,
-        label: 'Увеличить учебную схему',
+        label: 'Увеличить снимок 1С',
         child: InkWell(
           onTap: () => zoom(card),
           borderRadius: BorderRadius.circular(20),
@@ -388,7 +389,7 @@ class _TerminologyPageState extends State<TerminologyPage> {
               card.image,
               width: double.infinity,
               fit: BoxFit.contain,
-              semanticLabel: 'Пример в 1С. ${card.hint}',
+              semanticLabel: 'Снимок 1С. ${card.screenTitle}',
               errorBuilder: (_, _, _) => const ColoredBox(
                 color: _surface,
                 child: Center(child: Text('Изображение временно недоступно')),
@@ -399,13 +400,15 @@ class _TerminologyPageState extends State<TerminologyPage> {
         ),
       ),
       gap(7),
+      if (selected != null) Text(card.screenTitle, style: const TextStyle(color: _muted, fontSize: 14, height: 1.35)),
+      gap(5),
       const Row(
         children: [
           Icon(Icons.zoom_in, color: _muted, size: 15),
           SizedBox(width: 6),
           Expanded(
             child: Text(
-              'Учебная схема · нажми, чтобы увеличить',
+              'Снимок из документации 1С · увеличить',
               style: TextStyle(color: _muted, fontSize: 12),
             ),
           ),

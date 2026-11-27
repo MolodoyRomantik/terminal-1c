@@ -29,7 +29,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Резервная копия",
         "explanation": "Сохранённое состояние базы для восстановления. Перед опытом с загрузкой цен сделай копию и проверь её открытие отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-8.png",
+    "screenTitle": "Документы · Продажа уже произошла. На экране её оформляют документом с датой и перечнем товаров."
   },
   {
     "id": "T02",
@@ -61,7 +64,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Информационная база",
         "explanation": "Место, где работают с конкретным набором данных и действующей конфигурацией. В учебной базе есть твой склад «Основной» и сделанные тобой выдачи."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/derevo-obektov-konfiguracii/",
+    "screenImage": "assets/terminology/derevo-obektov-konfiguracii-1.png",
+    "screenTitle": "Дерево объектов конфигурации · Слева дерево конфигурации. Его ветки описывают, какие объекты есть в решении."
   },
   {
     "id": "T03",
@@ -93,7 +99,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Платформа",
         "explanation": "Средства, которые исполняют прикладное решение 1С. Благодаря платформе открываются формы и записываются документы твоего склада."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sreda-bystroy-razrabotki/",
+    "screenImage": "assets/terminology/sreda-bystroy-razrabotki-1.png",
+    "screenTitle": "Среда быстрой разработки · Посмотри на дерево и окна настройки объекта. Здесь работает разработчик."
   },
   {
     "id": "T04",
@@ -125,7 +134,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Информационная база",
         "explanation": "Место, где работают с конкретным набором данных и действующей конфигурацией. В учебной базе есть твой склад «Основной» и сделанные тобой выдачи."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spiski-obshchikh-informatsionnyh-baz/",
+    "screenImage": "assets/terminology/spiski-obshchikh-informatsionnyh-baz-1.png",
+    "screenTitle": "Списки общих информационных баз · В окне запуска выбирают базу и режим работы. Это вход в приложения на платформе 1С."
   },
   {
     "id": "T05",
@@ -157,7 +169,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Платформа",
         "explanation": "Средства, которые исполняют прикладное решение 1С. Благодаря платформе открываются формы и записываются документы твоего склада."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-7.png",
+    "screenTitle": "Документы · Так выглядит рабочий список документов, доступный пользователю."
   },
   {
     "id": "T06",
@@ -189,7 +204,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Резервная копия",
         "explanation": "Сохранённое состояние базы для восстановления. Перед опытом с загрузкой цен сделай копию и проверь её открытие отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spiski-obshchikh-informatsionnyh-baz/",
+    "screenImage": "assets/terminology/spiski-obshchikh-informatsionnyh-baz-1.png",
+    "screenTitle": "Списки общих информационных баз · Каждая строка списка запуска ведёт в отдельную информационную базу."
   },
   {
     "id": "T07",
@@ -221,7 +239,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Переменная",
         "explanation": "Имя для значения, с которым сейчас работает код. В переменной «Итого» можно накапливать сумму строк накладной."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/obekty-konfiguracii/",
+    "screenImage": "assets/terminology/obekty-konfiguracii-1.png",
+    "screenTitle": "Объекты конфигурации · В дереве показаны описания объектов. По этим описаниям 1С строит карточки и списки."
   },
   {
     "id": "T08",
@@ -253,7 +274,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Табличная часть",
         "explanation": "Повторяющиеся строки внутри одного объекта. В накладной одна строка отведена болтам, другая — гайкам; у каждой своё количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/podsistemy/",
+    "screenImage": "assets/terminology/podsistemy-1.png",
+    "screenTitle": "Подсистемы · Найди разделы, в которые разработчик объединяет связанные объекты."
   },
   {
     "id": "T09",
@@ -285,7 +309,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Табличная часть",
         "explanation": "Повторяющиеся строки внутри одного объекта. В накладной одна строка отведена болтам, другая — гайкам; у каждой своё количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-9.png",
+    "screenTitle": "Справочники · На экране список. Каждая строка представляет отдельную позицию справочника."
   },
   {
     "id": "T10",
@@ -317,7 +344,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Документ",
         "explanation": "Объект для регистрации события с датой. Привезли 40 подшипников — оформили поступление; следующая поставка оформляется отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-10.png",
+    "screenTitle": "Справочники · Открыта одна карточка товара. Видны его собственные наименование и свойства."
   },
   {
     "id": "T11",
@@ -349,7 +379,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Перечисление",
         "explanation": "Набор значений, заданный разработчиком. Приоритет ремонта выбирают из подготовленных вариантов «Обычный» и «Срочный»."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-2.png",
+    "screenTitle": "Справочники · В дереве «Номенклатура → Реквизиты» виден «Артикул». Именно здесь разработчик добавляет поле."
   },
   {
     "id": "T12",
@@ -381,7 +414,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Перечисление",
         "explanation": "Набор значений, заданный разработчиком. Приоритет ремонта выбирают из подготовленных вариантов «Обычный» и «Срочный»."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/palitra-svoystv/",
+    "screenImage": "assets/terminology/palitra-svoystv-1.png",
+    "screenTitle": "Палитра свойств · Окно свойств показывает, где разработчик настраивает характеристики объекта. Тип определяет допустимые значения поля."
   },
   {
     "id": "T13",
@@ -413,7 +449,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Реквизит",
         "explanation": "Именованное свойство объекта с заданным типом. Артикул «00125» записывают в строковый реквизит детали."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-12.png",
+    "screenTitle": "Справочники · Из списка выбора берут конкретную карточку. В поле документа сохраняется ссылка на неё."
   },
   {
     "id": "T14",
@@ -445,7 +484,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Документ",
         "explanation": "Объект для регистрации события с датой. Привезли 40 подшипников — оформили поступление; следующая поставка оформляется отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/perechisleniya/",
+    "screenImage": "assets/terminology/perechisleniya-1.png",
+    "screenTitle": "Перечисления · Посмотри на варианты внутри перечисления. Этот набор задаёт разработчик."
   },
   {
     "id": "T15",
@@ -477,7 +519,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Коммит Git",
         "explanation": "Сохранённая в истории проекта версия изменений с пояснением."
       }
-    ]
+    ],
+    "screenSource": "https://www.1more.cloud/upload/support/ОМС_ИнструкцияПоВыгрузкеКопииБазы1С.pdf",
+    "screenImage": "assets/terminology/backup.png",
+    "screenTitle": "Выгрузка базы · В меню «Администрирование» выделена команда «Выгрузить информационную базу». Она сохраняет копию в файл .dt."
   },
   {
     "id": "T16",
@@ -509,7 +554,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Табличная часть",
         "explanation": "Повторяющиеся строки внутри одного объекта. В накладной одна строка отведена болтам, другая — гайкам; у каждой своё количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-8.png",
+    "screenTitle": "Документы · Это одна продажа со своим номером, датой и составом товаров."
   },
   {
     "id": "T17",
@@ -541,7 +589,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Справочник",
         "explanation": "Набор элементов, на которые удобно ссылаться из разных мест базы. Один и тот же подшипник выбирают и в поступлении, и в выдаче."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-2.png",
+    "screenTitle": "Документы · Ищи поля, общие для всего документа, например организацию или дату."
   },
   {
     "id": "T18",
@@ -573,7 +624,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Реквизит",
         "explanation": "Именованное свойство объекта с заданным типом. Артикул «00125» записывают в строковый реквизит детали."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-3.png",
+    "screenTitle": "Документы · В табличной части у каждой позиции есть своя строка."
   },
   {
     "id": "T19",
@@ -605,7 +659,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Отмена проведения",
         "explanation": "Действие, снимающее у документа признак проведения. В учебном примере его движения удаляются."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-8.png",
+    "screenTitle": "Документы · В форме документа найди кнопку «Записать». Она сохраняет введённые поля."
   },
   {
     "id": "T20",
@@ -637,7 +694,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Табличная часть",
         "explanation": "Повторяющиеся строки внутри одного объекта. В накладной одна строка отведена болтам, другая — гайкам; у каждой своё количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/redaktor-teksta-i-modulya/",
+    "screenImage": "assets/terminology/editor-5.png",
+    "screenTitle": "Редактор текста и модуля · Открыт редактор модуля. В одном модуле могут находиться несколько процедур."
   },
   {
     "id": "T21",
@@ -669,7 +729,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Параметр процедуры или функции",
         "explanation": "Имя, через которое подпрограмма получает данные при вызове. В расчёт стоимости передают количество и цену."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-8.png",
+    "screenTitle": "Отладчик · Отладчик показывает текущие значения. Так проверяют содержимое переменной во время выполнения."
   },
   {
     "id": "T22",
@@ -701,7 +764,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Цикл",
         "explanation": "Повторение действий. Цикл «Для каждого» позволяет проверить каждую строку одной выдачи."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/redaktor-teksta-i-modulya/",
+    "screenImage": "assets/terminology/editor-10.png",
+    "screenTitle": "Редактор текста и модуля · В теле процедуры найди строку со знаком равенства, которая записывает значение в свойство."
   },
   {
     "id": "T23",
@@ -733,7 +799,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Неопределено",
         "explanation": "Специальное значение встроенного языка. Например, его имеет переменная, которой ещё ничего не присвоили."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/redaktor-teksta-i-modulya/",
+    "screenImage": "assets/terminology/editor-18.png",
+    "screenTitle": "Редактор текста и модуля · В редакторе строковые значения узнают по кавычкам."
   },
   {
     "id": "T24",
@@ -765,7 +834,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Условие",
         "explanation": "Проверка, от которой зависит следующее действие программы. Если количество равно нулю, можно сообщить кладовщику об ошибке."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-6.png",
+    "screenTitle": "Отладчик · В окне вычисления выражения разработчик вводит выражение и смотрит результат."
   },
   {
     "id": "T25",
@@ -797,7 +869,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Булево",
         "explanation": "Тип с двумя значениями — Истина и Ложь. Для снятой с производства детали признак «СнятСПроизводства» принимает значение Истина."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/shablony-teksta/",
+    "screenImage": "assets/terminology/shablony-teksta-6.png",
+    "screenTitle": "Шаблоны текста · Ищи конструкцию «Если». Следующие действия зависят от проверки."
   },
   {
     "id": "T26",
@@ -829,7 +904,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Массив",
         "explanation": "Коллекция значений с доступом по индексу; первый индекс в 1С равен нулю. Можно собрать номера строк накладной, где забыли количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-2.png",
+    "screenTitle": "Отладчик · Условие точки останова вычисляется в Истина или Ложь. При истинном условии отладчик остановится."
   },
   {
     "id": "T27",
@@ -861,7 +939,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "NULL",
         "explanation": "Обозначение отсутствующего значения в результате запроса. После левого соединения у детали без движений поле правой таблицы с остатком может быть NULL; правило показа нуля задай отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-9.png",
+    "screenTitle": "Отладчик · Отладчик позволяет увидеть значение и его тип. Здесь проверяют и случай, когда значение ещё не задано."
   },
   {
     "id": "T28",
@@ -893,7 +974,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Строка",
         "explanation": "Тип для текста, в том числе текста из цифр."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-7.png",
+    "screenTitle": "Отладчик · Отладчик раскрывает коллекцию и показывает значения внутри неё."
   },
   {
     "id": "T29",
@@ -925,7 +1009,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Переменная",
         "explanation": "Имя для значения, с которым сейчас работает код. В переменной «Итого» можно накапливать сумму строк накладной."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sintaks-pomoshchnik/",
+    "screenImage": "assets/terminology/sintaks-pomoshchnik-9.png",
+    "screenTitle": "Синтакс-помощник · Синтакс-помощник подсказывает доступные методы и форму вызова."
   },
   {
     "id": "T30",
@@ -957,7 +1044,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Выражение",
         "explanation": "Запись, которую программа вычисляет и получает значение."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-2.png",
+    "screenTitle": "Отладчик · Условная точка останова помогает остановиться на нужном проходе цикла."
   },
   {
     "id": "T31",
@@ -989,7 +1079,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Выражение",
         "explanation": "Запись, которую программа вычисляет и получает значение."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/redaktor-teksta-i-modulya/",
+    "screenImage": "assets/terminology/editor-17.png",
+    "screenTitle": "Редактор текста и модуля · При вводе вызова редактор подсказывает, какие значения можно передать в скобках."
   },
   {
     "id": "T32",
@@ -1021,7 +1114,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Цикл",
         "explanation": "Повторение действий. Цикл «Для каждого» позволяет проверить каждую строку одной выдачи."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/redaktor-teksta-i-modulya/",
+    "screenImage": "assets/terminology/editor-16.png",
+    "screenTitle": "Редактор текста и модуля · В редакторе можно перейти к объявлению нужной процедуры."
   },
   {
     "id": "T33",
@@ -1053,7 +1149,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Условие",
         "explanation": "Проверка, от которой зависит следующее действие программы. Если количество равно нулю, можно сообщить кладовщику об ошибке."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-11.png",
+    "screenTitle": "Отладчик · Стек вызовов показывает путь выполнения по подпрограммам. В коде функция возвращает результат вызывающей строке."
   },
   {
     "id": "T34",
@@ -1085,7 +1184,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Переменная",
         "explanation": "Имя для значения, с которым сейчас работает код. В переменной «Итого» можно накапливать сумму строк накладной."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/json/",
+    "screenImage": "assets/terminology/json-2.png",
+    "screenTitle": "JSON · Поля с именами позволяют узнать, какое значение относится к какому свойству. На снимке — пример преобразования данных."
   },
   {
     "id": "T35",
@@ -1117,7 +1219,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Присваивание",
         "explanation": "Команда, которая даёт переменной значение."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/otladchik/",
+    "screenImage": "assets/terminology/otladchik-1.png",
+    "screenTitle": "Отладчик · Метка на полях редактора указывает строку, где выполнение кода остановится."
   },
   {
     "id": "T36",
@@ -1149,7 +1254,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Шапка документа",
         "explanation": "Поля, которые относятся ко всему документу сразу."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-10.png",
+    "screenTitle": "Справочники · Поля и кнопки карточки товара образуют форму, с которой работает пользователь."
   },
   {
     "id": "T37",
@@ -1181,7 +1289,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Процедура",
         "explanation": "Подпрограмма, выполняющая действия без возвращаемого значения. Процедура может пройти по накладной и вывести ошибки кладовщику."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/vstroennyy-yazyk/",
+    "screenImage": "assets/terminology/vstroennyy-yazyk-1.png",
+    "screenTitle": "Встроенный язык · «ПередЗаписью» — момент, когда платформа вызывает код перед сохранением."
   },
   {
     "id": "T38",
@@ -1213,7 +1324,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Точка останова",
         "explanation": "Метка отладчика, останавливающая выполнение в выбранной строке кода. Поставь её на расчёте суммы и посмотри, чему равны цена и количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/redaktor-teksta-i-modulya/",
+    "screenImage": "assets/terminology/editor-14.png",
+    "screenTitle": "Редактор текста и модуля · В списке процедур модуля можно найти обработчик и перейти к его тексту."
   },
   {
     "id": "T39",
@@ -1245,7 +1359,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Конфигуратор",
         "explanation": "Среда, в которой разработчик меняет конфигурацию и отлаживает её работу. Здесь задают тип поля «Количество»."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/tonkiy-klient/",
+    "screenImage": "assets/terminology/tonkiy-klient-1.png",
+    "screenTitle": "Тонкий клиент · Окно прикладного решения показывает ту часть системы, с которой взаимодействует пользователь."
   },
   {
     "id": "T40",
@@ -1277,7 +1394,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Строка",
         "explanation": "Тип для текста, в том числе текста из цифр."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sintaks-pomoshchnik/",
+    "screenImage": "assets/terminology/sintaks-pomoshchnik-2.png",
+    "screenTitle": "Синтакс-помощник · Синтакс-помощник различает контексты исполнения. Серверный контекст важен при работе с данными."
   },
   {
     "id": "T41",
@@ -1309,7 +1429,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Элемент справочника",
         "explanation": "Одна самостоятельная запись каталога. «Подшипник 6205» — элемент справочника «Детали»."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-10.png",
+    "screenTitle": "Справочники · Перед тобой карточка, данные которой можно редактировать. В коде для записи правок получают объект."
   },
   {
     "id": "T42",
@@ -1341,7 +1464,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Переменная",
         "explanation": "Имя для значения, с которым сейчас работает код. В переменной «Итого» можно накапливать сумму строк накладной."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konsol-zaprosov/",
+    "screenImage": "assets/terminology/konsol-zaprosov-1.png",
+    "screenTitle": "Консоль запросов · В консоли видны строки результата. В коде выборка позволяет переходить по ним последовательно."
   },
   {
     "id": "T43",
@@ -1373,7 +1499,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Движение",
         "explanation": "Запись регистра, отражающая учётное действие. При проведении выдачи 3 деталей создаётся расход 3 по выбранным детали и складу."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-1.png",
+    "screenTitle": "Регистр накопления · В дереве регистра раскрой «Измерения». По этим признакам запасы считаются раздельно."
   },
   {
     "id": "T44",
@@ -1405,7 +1534,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Расход",
         "explanation": "Вид движения, уменьшающий такой остаток при положительном количестве."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-2.png",
+    "screenTitle": "Регистр накопления · На экране записи количественного учёта. Остаток на момент рассчитывают с учётом направления движений."
   },
   {
     "id": "T45",
@@ -1437,7 +1569,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Документ",
         "explanation": "Объект для регистрации события с датой. Привезли 40 подшипников — оформили поступление; следующая поставка оформляется отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-5.png",
+    "screenTitle": "Регистр накопления · В свойствах регистра найди его вид. Он определяет, какие итоги доступны."
   },
   {
     "id": "T46",
@@ -1469,7 +1604,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Движение",
         "explanation": "Запись регистра, отражающая учётное действие. При проведении выдачи 3 деталей создаётся расход 3 по выбранным детали и складу."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-1.png",
+    "screenTitle": "Регистр накопления · В дереве регистра найди «Ресурсы». Здесь описана величина, которую учитывают."
   },
   {
     "id": "T47",
@@ -1501,7 +1639,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Остаток",
         "explanation": "Количество, числящееся по выбранным признакам на нужный момент. Для нулевого начального запаса приход 10 и выдача 4 дают остаток 6."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-4.png",
+    "screenTitle": "Регистр накопления · Одна строка регистра — одно движение. Видны период, документ и количество."
   },
   {
     "id": "T48",
@@ -1533,7 +1674,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Отмена проведения",
         "explanation": "Действие, снимающее у документа признак проведения. В учебном примере его движения удаляются."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-dvizheniy/",
+    "screenImage": "assets/terminology/konstruktor-dvizheniy-3.png",
+    "screenTitle": "Конструктор движений · Это код проведения, который формирует записи регистра при проведении документа."
   },
   {
     "id": "T49",
@@ -1565,7 +1709,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Оборот",
         "explanation": "Количество или сумма операций за период. Приход за неделю может составить 12 штук; это ещё не говорит, сколько лежит на складе сейчас."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-4.png",
+    "screenTitle": "Регистр накопления · В списке движений сравни направления. Приход увеличивает количество на складе."
   },
   {
     "id": "T50",
@@ -1597,7 +1744,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Оборот",
         "explanation": "Количество или сумма операций за период. Приход за неделю может составить 12 штук; это ещё не говорит, сколько лежит на складе сейчас."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-4.png",
+    "screenTitle": "Регистр накопления · В списке движений расход узнают по направлению. Он уменьшает запас."
   },
   {
     "id": "T51",
@@ -1629,7 +1779,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Отмена проведения",
         "explanation": "Действие, снимающее у документа признак проведения. В учебном примере его движения удаляются."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-8.png",
+    "screenTitle": "Документы · Чтобы учесть исправленную выдачу заново, открывают тот же документ и снова проводят его."
   },
   {
     "id": "T52",
@@ -1661,7 +1814,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Ресурс регистра",
         "explanation": "Значение, которое хранится по выбранным измерениям. В регистре складских остатков ресурс «Количество» показывает, сколько единиц меняет движение."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-4.png",
+    "screenTitle": "Регистр накопления · Выделена колонка «Регистратор». В ней виден документ, которому принадлежит движение."
   },
   {
     "id": "T53",
@@ -1693,7 +1849,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Проведение",
         "explanation": "Действие, при котором прикладная логика отражает документ в учёте. В учебной базе только проведённое поступление должно увеличить остаток."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/dokumenty/",
+    "screenImage": "assets/terminology/dokumenty-7.png",
+    "screenTitle": "Документы · В списке документов выбирают нужную запись. Отмена проведения снимает её влияние на учёт."
   },
   {
     "id": "T54",
@@ -1725,7 +1884,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Документ",
         "explanation": "Объект для регистрации события с датой. Привезли 40 подшипников — оформили поступление; следующая поставка оформляется отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-svedeniy/",
+    "screenImage": "assets/terminology/registr-svedeniy-1.png",
+    "screenTitle": "Регистр сведений · Обрати внимание на структуру регистра цен. Здесь хранят сведения по выбранным признакам."
   },
   {
     "id": "T55",
@@ -1757,7 +1919,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Справочник",
         "explanation": "Набор элементов, на которые удобно ссылаться из разных мест базы. Один и тот же подшипник выбирают и в поступлении, и в выдаче."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-svedeniy/",
+    "screenImage": "assets/terminology/registr-svedeniy-3.png",
+    "screenTitle": "Регистр сведений · В свойствах регистра задают периодичность. Она позволяет хранить историю значений."
   },
   {
     "id": "T56",
@@ -1789,7 +1954,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Выборка",
         "explanation": "Способ последовательно обойти полученные записи."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-svedeniy/",
+    "screenImage": "assets/terminology/registr-svedeniy-2.png",
+    "screenTitle": "Регистр сведений · Перед тобой исходная история цен. Для среза на дату берут последнее подходящее значение по каждой позиции."
   },
   {
     "id": "T57",
@@ -1821,7 +1989,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Справочник",
         "explanation": "Набор элементов, на которые удобно ссылаться из разных мест базы. Один и тот же подшипник выбирают и в поступлении, и в выдаче."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-zaprosa/",
+    "screenImage": "assets/terminology/konstruktor-zaprosa-1.png",
+    "screenTitle": "Конструктор запроса · В конструкторе запроса разработчик выбирает источник данных, включая виртуальные таблицы регистров."
   },
   {
     "id": "T58",
@@ -1853,7 +2024,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Макет печати",
         "explanation": "Заготовка оформления, в которую программа подставляет данные."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konsol-zaprosov/",
+    "screenImage": "assets/terminology/konsol-zaprosov-1.png",
+    "screenTitle": "Консоль запросов · Консоль позволяет сопоставить текст запроса и строки, которые он вернул."
   },
   {
     "id": "T59",
@@ -1885,7 +2059,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Оборот",
         "explanation": "Количество или сумма операций за период. Приход за неделю может составить 12 штук; это ещё не говорит, сколько лежит на складе сейчас."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sistema-komponovki-dannykh/",
+    "screenImage": "assets/terminology/sistema-komponovki-dannykh-6.png",
+    "screenTitle": "Система компоновки данных · В настройках отчёта задают условия, ограничивающие набор строк."
   },
   {
     "id": "T60",
@@ -1917,7 +2094,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Измерение регистра",
         "explanation": "Признак, в разрезе которого ведут данные. Если измерения — склад и деталь, остатки одного подшипника на двух складах различаются."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konsol-zaprosov/",
+    "screenImage": "assets/terminology/konsol-zaprosov-3.png",
+    "screenTitle": "Консоль запросов · В консоли отдельно задают значения параметров перед выполнением запроса."
   },
   {
     "id": "T61",
@@ -1949,7 +2129,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Срез последних",
         "explanation": "Таблица наиболее поздних записей по сочетаниям измерений на указанный момент."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-6.png",
+    "screenTitle": "Регистр накопления · Это пример оборотного регистра. Его данные используют для подсчёта объёма операций за период."
   },
   {
     "id": "T62",
@@ -1981,7 +2164,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Расшифровка",
         "explanation": "Переход от показателя отчёта к его деталям. Из расхода 9 штук мастер хочет увидеть выдачи 4 и 5 штук."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-zaprosa/",
+    "screenImage": "assets/terminology/konstruktor-zaprosa-1.png",
+    "screenTitle": "Конструктор запроса · В конструкторе задают источники и связи. Левое соединение сохраняет строки первого источника."
   },
   {
     "id": "T63",
@@ -2013,7 +2199,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Строка",
         "explanation": "Тип для текста, в том числе текста из цифр."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konsol-zaprosov/",
+    "screenImage": "assets/terminology/konsol-zaprosov-1.png",
+    "screenTitle": "Консоль запросов · В таблице результата запроса поле правого источника может получить NULL, когда пары для строки нет."
   },
   {
     "id": "T64",
@@ -2045,7 +2234,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Расшифровка",
         "explanation": "Переход от показателя отчёта к его деталям. Из расхода 9 штук мастер хочет увидеть выдачи 4 и 5 штук."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-zaprosa/",
+    "screenImage": "assets/terminology/konstruktor-zaprosa-1.png",
+    "screenTitle": "Конструктор запроса · В конструкторе выбирают поля группировки. По ним объединяются строки результата."
   },
   {
     "id": "T65",
@@ -2077,7 +2269,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Измерение регистра",
         "explanation": "Признак, в разрезе которого ведут данные. Если измерения — склад и деталь, остатки одного подшипника на двух складах различаются."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-zaprosa/",
+    "screenImage": "assets/terminology/konstruktor-zaprosa-2.png",
+    "screenTitle": "Конструктор запроса · В тексте запроса условие по итогам групп задают через ИМЕЮЩИЕ."
   },
   {
     "id": "T66",
@@ -2109,7 +2304,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Регистр накопления",
         "explanation": "Объект для учёта числовых изменений в заданных разрезах. Регистр вида «Остатки» подходит для количества деталей по складам."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-zaprosa/",
+    "screenImage": "assets/terminology/konstruktor-zaprosa-1.png",
+    "screenTitle": "Конструктор запроса · Конструктор позволяет собирать пакет запросов. Промежуточный результат можно поместить во временную таблицу."
   },
   {
     "id": "T67",
@@ -2141,7 +2339,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Управляемая форма",
         "explanation": "Экран с описанными данными, элементами и командами, который строит платформа. В форме выдачи кладовщик выбирает цех, заполняет строки и запускает проверку."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sistema-komponovki-dannykh/",
+    "screenImage": "assets/terminology/sistema-komponovki-dannykh-5.png",
+    "screenTitle": "Система компоновки данных · Открыт конструктор схемы компоновки. Здесь задают состав данных будущего отчёта."
   },
   {
     "id": "T68",
@@ -2173,7 +2374,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Выборка",
         "explanation": "Способ последовательно обойти полученные записи."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sistema-komponovki-dannykh/",
+    "screenImage": "assets/terminology/sistema-komponovki-dannykh-7.png",
+    "screenTitle": "Система компоновки данных · С итоговой ячейки отчёта пользователь начинает расшифровку и переходит к подробностям."
   },
   {
     "id": "T69",
@@ -2205,7 +2409,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Резервная копия",
         "explanation": "Сохранённое состояние базы для восстановления. Перед опытом с загрузкой цен сделай копию и проверь её открытие отдельно."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/konstruktor-dvizheniy/",
+    "screenImage": "assets/terminology/konstruktor-dvizheniy-3.png",
+    "screenTitle": "Конструктор движений · На снимке код проведения. Его изменения должны завершиться вместе, иначе изменения транзакции отменяются."
   },
   {
     "id": "T70",
@@ -2237,7 +2444,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Точка останова",
         "explanation": "Метка отладчика, останавливающая выполнение в выбранной строке кода. Поставь её на расчёте суммы и посмотри, чему равны цена и количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/registr-nakopleniya/",
+    "screenImage": "assets/terminology/registr-nakopleniya-4.png",
+    "screenTitle": "Регистр накопления · Это данные, за которые могут одновременно конкурировать два сеанса. Сама блокировка в списке движений не отображается."
   },
   {
     "id": "T71",
@@ -2269,7 +2479,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Коммит Git",
         "explanation": "Сохранённая в истории проекта версия изменений с пояснением."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/tekstovye-dokumenty/",
+    "screenImage": "assets/terminology/tekstovye-dokumenty-1.png",
+    "screenTitle": "Текстовые документы · В текстовом документе можно просматривать строки файла. Для CSV поля внутри строки разделены согласованным знаком."
   },
   {
     "id": "T72",
@@ -2301,7 +2514,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Строка",
         "explanation": "Тип для текста, в том числе текста из цифр."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/json/",
+    "screenImage": "assets/terminology/json-2.png",
+    "screenTitle": "JSON · Пример из материалов 1С показывает, как встроенный язык записывает данные в JSON."
   },
   {
     "id": "T73",
@@ -2333,7 +2549,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Блокировка",
         "explanation": "Механизм согласования доступа при одновременной работе. Если два кладовщика претендуют на последние пять деталей, важно согласовать проверку остатка и запись расхода."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/zhurnal-registracii/",
+    "screenImage": "assets/terminology/zhurnal-registracii-1.png",
+    "screenTitle": "Журнал регистрации · Журнал позволяет расследовать повторную обработку. Чтобы проверить результат, сравни количество созданных документов."
   },
   {
     "id": "T74",
@@ -2365,7 +2584,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Реквизит",
         "explanation": "Именованное свойство объекта с заданным типом. Артикул «00125» записывают в строковый реквизит детали."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/spravochniki/",
+    "screenImage": "assets/terminology/spravochniki-2.png",
+    "screenTitle": "Справочники · В дереве реквизитов виден «Идентификатор». Для обмена важно уточнить, какую метку присылает внешний источник."
   },
   {
     "id": "T75",
@@ -2397,7 +2619,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Запрос",
         "explanation": "Текстовое описание того, какие данные получить из базы. Для списка артикулов достаточно выбрать нужные поля справочника деталей."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/http-servisy/",
+    "screenImage": "assets/terminology/http-servisy-1.png",
+    "screenTitle": "HTTP-сервисы · Найди HTTP-сервисы в дереве конфигурации. Здесь разработчик описывает доступные адреса и методы."
   },
   {
     "id": "T76",
@@ -2429,7 +2654,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Блокировка",
         "explanation": "Механизм согласования доступа при одновременной работе. Если два кладовщика претендуют на последние пять деталей, важно согласовать проверку остатка и запись расхода."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/sistema-prav-dostupa/",
+    "screenImage": "assets/terminology/sistema-prav-dostupa-1.png",
+    "screenTitle": "Система прав доступа · В настройках прав права роли задаются для выбранных объектов и действий."
   },
   {
     "id": "T77",
@@ -2461,7 +2689,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Коммит Git",
         "explanation": "Сохранённая в истории проекта версия изменений с пояснением."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/rasshireniya/",
+    "screenImage": "assets/terminology/rasshireniya-1.png",
+    "screenTitle": "Расширения · Обрати внимание на отдельное окно расширения. В нём разработчик хранит свою доработку."
   },
   {
     "id": "T78",
@@ -2493,7 +2724,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Управляемая форма",
         "explanation": "Экран с описанными данными, элементами и командами, который строит платформа. В форме выдачи кладовщик выбирает цех, заполняет строки и запускает проверку."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/makety/",
+    "screenImage": "assets/terminology/makety-1.png",
+    "screenTitle": "Макеты · Макет задаёт заготовку вывода. В печатной форме её заполняют данными документа."
   },
   {
     "id": "T79",
@@ -2525,7 +2759,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Коммит Git",
         "explanation": "Сохранённая в истории проекта версия изменений с пояснением."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/zhurnal-registracii/",
+    "screenImage": "assets/terminology/zhurnal-registracii-1.png",
+    "screenTitle": "Журнал регистрации · В журнале регистрации события можно искать по времени, пользователю и данным."
   },
   {
     "id": "T80",
@@ -2557,7 +2794,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Расширение",
         "explanation": "Способ дополнить основную конфигурацию. Для учебной заявки через расширение можно добавить отметку мастера и проверить её сохранение."
       }
-    ]
+    ],
+    "screenSource": "https://its.1c.ru/db/content/edtdoc/src/topics/i170.html",
+    "screenImage": "assets/terminology/edt-git.png",
+    "screenTitle": "Индексирование Git в 1С:EDT · Проверь подготовленные изменения и поле сообщения коммита."
   },
   {
     "id": "T81",
@@ -2589,7 +2829,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Платформа",
         "explanation": "Средства, которые исполняют прикладное решение 1С. Благодаря платформе открываются формы и записываются документы твоего склада."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/postavka-i-podderzhka/",
+    "screenImage": "assets/terminology/postavka-i-podderzhka-5.png",
+    "screenTitle": "Поставка и поддержка · Окно поддержки показывает объекты решения поставщика и состояние их поддержки."
   },
   {
     "id": "T82",
@@ -2621,7 +2864,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Условие",
         "explanation": "Проверка, от которой зависит следующее действие программы. Если количество равно нулю, можно сообщить кладовщику об ошибке."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/avtomatizirovannoe-testirovanie/",
+    "screenImage": "assets/terminology/avtomatizirovannoe-testirovanie-2.png",
+    "screenTitle": "Автоматизированное  тестирование · Это пример сценария проверки записи товара. Критерий приёмки определяет ожидаемый результат сценария."
   },
   {
     "id": "T83",
@@ -2653,7 +2899,10 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Точка останова",
         "explanation": "Метка отладчика, останавливающая выполнение в выбранной строке кода. Поставь её на расчёте суммы и посмотри, чему равны цена и количество."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/avtomatizirovannoe-testirovanie/",
+    "screenImage": "assets/terminology/avtomatizirovannoe-testirovanie-3.png",
+    "screenTitle": "Автоматизированное  тестирование · Инструменты тестирования записывают действия пользователя. Граничный пример задают выбором исходных значений."
   },
   {
     "id": "T84",
@@ -2685,6 +2934,9 @@ const List<Map<String, dynamic>> terminologyData = [
         "text": "Коммит Git",
         "explanation": "Сохранённая в истории проекта версия изменений с пояснением."
       }
-    ]
+    ],
+    "screenSource": "https://v8.1c.ru/platforma/avtomatizirovannoe-testirovanie/",
+    "screenImage": "assets/terminology/avtomatizirovannoe-testirovanie-4.png",
+    "screenTitle": "Автоматизированное  тестирование · Записанные действия помогают повторить сценарий приёмки и сверить итог с требованиями."
   }
 ];

@@ -20,7 +20,9 @@ void main() {
         expect(ids.contains(option['id']), isTrue);
         expect((option['explanation'] as String).isNotEmpty, isTrue);
       }
-      expect(term['image'], 'assets/terminology/${term["id"]}.png');
+      expect(term['screenImage'], startsWith('assets/terminology/'));
+      expect(term['screenSource'], startsWith('https://'));
+      expect((term['screenTitle'] as String).isNotEmpty, isTrue);
     }
   });
   for (final width in [320.0, 414.0]) {
